@@ -1,16 +1,32 @@
-export function ListOfBooks(props: { title: string, subtitle: string, isbn13: number, price: string, image: string, url: string }): React.ReactElement {
-    const { title, subtitle, isbn13, price, image, url } = props
+import { useState, useEffect } from "react"
+import { BooksCard } from "../books-card/BooksCard"
+import type { Book } from "../../types"
+import { Container } from "../../components/container/Container"
+
+export function ListOfBooks(): React.ReactElement {
+    const [books, setBooks] = useState<Book[]>([])
+
+    useEffect(() => {
+        fetchBooks()
+    }, [])
+
+    async function fetchBooks() {
+        const response = await fetch("https://api.itbook.store/1.0/new")
+        const data = await response.json()
+        setBooks(data.books)
+    }
 
     return (
-        <div className="card w-25 ">
-            <div>
-                <img src={image} alt="#" />
+        <Container>
+            <div className="d-flex flex-wrap gap-3 justify-content-center">
+                {books.map(book => (
+                    <BooksCard 
+                        key={book.isbn13} 
+                        {...book}
+                        isbn13={book.isbn13.toString()}
+                    />
+                ))}
             </div>
-            <div className="card-body">
-                <h5 className="card-title">{title}</h5>
-                <p className="card-text">{subtitle}</p>
-                <p className="card-text">{price}</p>
-            </div>
-        </div>
+        </Container>
     )
 }
