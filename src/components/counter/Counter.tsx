@@ -9,20 +9,20 @@ export function Counter(): React.ReactElement {
     }
 
     return (
-        <>
+        <div className="d-flex">
             <button
                 type="button"
-                className="btn btn-outline-dark "
+                className="btn btn-outline-dark"
                 onClick={handleClickIncrement}>
                 Increment
             </button>
-            <span>Count</span>
+            <div className="">Count</div>
             <button
                 type="button"
                 className="btn btn-outline-dark"
                 onClick={handleClickDecrement} >
                 Decrement
             </button>
-        </>
+        </div>
     )
 }

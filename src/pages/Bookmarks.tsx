@@ -1,9 +1,10 @@
 import { useEffect } from "react"
 import { useState } from "react"
-import { BookBookmarks } from "../components/books-card/book-bookmarks/BookBookMarks"
+import { BookBookmarks } from "../components/books-card/book-bookmarks/BookBookmarks"
 import { Container } from "../components/container/Container"
 import { Loader } from "../components/loader/Loader"
 import type { Book } from "../types"
+import { Check } from "../components/check/Check"
 
 export function Bookmarks() {
     const [books, setBooks] = useState<Book[]>([])
@@ -22,18 +23,18 @@ export function Bookmarks() {
         setBooks(data.books)
         setIsLoading(false)
     }
-    
+
     return (
-        <Container>
-        <div className="d-flex flex-wrap gap-3 justify-content-center">
-            {books.map(book => (
-                <BookBookmarks 
-                    key={book.isbn13} 
-                    {...book}
-                    isbn13={book.isbn13.toString()}
-                />
-            ))}
-        </div>
-    </Container>
+            <Container>
+                <div className="d-flex flex-wrap gap-3 justify-content-center">
+                    {books.map(book => (
+                        <BookBookmarks
+                            key={book.isbn13}
+                            {...book}
+                        />
+                    ))}
+                </div>
+                <Check />
+            </Container>
     )
 }
